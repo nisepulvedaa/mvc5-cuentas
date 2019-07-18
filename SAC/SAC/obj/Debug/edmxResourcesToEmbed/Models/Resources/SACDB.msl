@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SACStoreContainer" CdmEntityContainer="SACModel">
+    <EntitySetMapping Name="Cuenta">
+      <EntityTypeMapping TypeName="SAC.Cuenta">
+        <MappingFragment StoreEntitySet="Cuenta">
+          <ScalarProperty Name="CuentaId" ColumnName="CuentaId" />
+          <ScalarProperty Name="CuentaNumero" ColumnName="CuentaNumero" />
+          <ScalarProperty Name="CuentaNombre" ColumnName="CuentaNombre" />
+          <ScalarProperty Name="CuentaEmpresa" ColumnName="CuentaEmpresa" />
+          <ScalarProperty Name="CuentaRubro" ColumnName="CuentaRubro" />
+          <ScalarProperty Name="CuentaGrupo" ColumnName="CuentaGrupo" />
+          <ScalarProperty Name="CuentaDescripcion" ColumnName="CuentaDescripcion" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EstadoCuenta">
+      <EntityTypeMapping TypeName="SAC.EstadoCuenta">
+        <MappingFragment StoreEntitySet="EstadoCuenta">
+          <ScalarProperty Name="EstadoId" ColumnName="EstadoId" />
+          <ScalarProperty Name="EstadoNombre" ColumnName="EstadoNombre" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grupo">
+      <EntityTypeMapping TypeName="SAC.Grupo">
+        <MappingFragment StoreEntitySet="Grupo">
+          <ScalarProperty Name="GrupoId" ColumnName="GrupoId" />
+          <ScalarProperty Name="GrupoNombre" ColumnName="GrupoNombre" />
+          <ScalarProperty Name="GrupoDescripcion" ColumnName="GrupoDescripcion" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Perfil">
+      <EntityTypeMapping TypeName="SAC.Perfil">
+        <MappingFragment StoreEntitySet="Perfil">
+          <ScalarProperty Name="PerfilId" ColumnName="PerfilId" />
+          <ScalarProperty Name="PerfilNombre" ColumnName="PerfilNombre" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rubro">
+      <EntityTypeMapping TypeName="SAC.Rubro">
+        <MappingFragment StoreEntitySet="Rubro">
+          <ScalarProperty Name="RubroId" ColumnName="RubroId" />
+          <ScalarProperty Name="RubroNombre" ColumnName="RubroNombre" />
+          <ScalarProperty Name="RubroDescripcion" ColumnName="RubroDescripcion" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SACLogin" FunctionName="SAC.Store.SACLogin" />
+    <FunctionImportMapping FunctionImportName="Login" FunctionName="SAC.Store.SACLogin" />
+    <FunctionImportMapping FunctionImportName="IngresarEmpresa" FunctionName="SAC.Store.IngresarEmpresa" />
+    <EntitySetMapping Name="Empresa">
+      <EntityTypeMapping TypeName="SAC.Empresa">
+        <MappingFragment StoreEntitySet="Empresa">
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="EmpresaGiro" ColumnName="EmpresaGiro" />
+          <ScalarProperty Name="EmpresaLogo" ColumnName="EmpresaLogo" />
+          <ScalarProperty Name="EmpresaRazonSocial" ColumnName="EmpresaRazonSocial" />
+          <ScalarProperty Name="EmpresaRut" ColumnName="EmpresaRut" />
+          <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="EditarEmpresa" FunctionName="SAC.Store.EditarEmpresa" />
+    <FunctionImportMapping FunctionImportName="EliminarEmpresa" FunctionName="SAC.Store.EliminarEmpresa" />
+    <FunctionImportMapping FunctionImportName="IngresarRubros" FunctionName="SAC.Store.IngresarRubros" />
+    <FunctionImportMapping FunctionImportName="EditarRubro" FunctionName="SAC.Store.EditarRubro" />
+    <FunctionImportMapping FunctionImportName="EliminarRubro" FunctionName="SAC.Store.EliminarRubro" />
+    <FunctionImportMapping FunctionImportName="IngresarGrupos" FunctionName="SAC.Store.IngresarGrupos" />
+    <FunctionImportMapping FunctionImportName="EditarGrupo" FunctionName="SAC.Store.EditarGrupo" />
+    <FunctionImportMapping FunctionImportName="EliminarGrupo" FunctionName="SAC.Store.EliminarGrupo" />
+    <FunctionImportMapping FunctionImportName="IngresarCuenta" FunctionName="SAC.Store.IngresarCuenta" />
+    <FunctionImportMapping FunctionImportName="EditarCuenta" FunctionName="SAC.Store.EditarCuenta" />
+    <FunctionImportMapping FunctionImportName="EliminarCuenta" FunctionName="SAC.Store.EliminarCuenta" />
+    <FunctionImportMapping FunctionImportName="IngresarUsuario" FunctionName="SAC.Store.IngresarUsuario" />
+    <FunctionImportMapping FunctionImportName="ActualizarPassword" FunctionName="SAC.Store.ActualizarPassword" />
+    <FunctionImportMapping FunctionImportName="ObtenerAñosDistintos" FunctionName="SAC.Store.ObtenerAñosDistintos" />
+    <FunctionImportMapping FunctionImportName="AsignarCuentaActiva" FunctionName="SAC.Store.AsignarCuentaActiva" />
+    <FunctionImportMapping FunctionImportName="IngresarCuentaActiva" FunctionName="SAC.Store.IngresarCuentaActiva" />
+    <EntitySetMapping Name="CuentaActiva">
+      <EntityTypeMapping TypeName="SAC.CuentaActiva">
+        <MappingFragment StoreEntitySet="CuentaActiva">
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="CuentaActivaEstado" ColumnName="CuentaActivaEstado" />
+          <ScalarProperty Name="CertificadorId" ColumnName="CertificadorId" />
+          <ScalarProperty Name="ValidadorId" ColumnName="ValidadorId" />
+          <ScalarProperty Name="AnalistaId" ColumnName="AnalistaId" />
+          <ScalarProperty Name="CuentaActivaTotal" ColumnName="CuentaActivaTotal" />
+          <ScalarProperty Name="CuentaActivaDiasPlazo" ColumnName="CuentaActivaDiasPlazo" />
+          <ScalarProperty Name="CuentaActivaFecha" ColumnName="CuentaActivaFecha" />
+          <ScalarProperty Name="CuentaActivaId" ColumnName="CuentaActivaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="EditarArchivo" FunctionName="SAC.Store.EditarArchivo" />
+    <FunctionImportMapping FunctionImportName="EliminarArchivo" FunctionName="SAC.Store.EliminarArchivo" />
+    <FunctionImportMapping FunctionImportName="IngresarArchivo" FunctionName="SAC.Store.IngresarArchivo" />
+    <FunctionImportMapping FunctionImportName="IngresarVersion" FunctionName="SAC.Store.IngresarVersion" />
+    <FunctionImportMapping FunctionImportName="CambiarEstadoCuenta" FunctionName="SAC.Store.CambiarEstadoCuenta" />
+    <EntitySetMapping Name="Archivo">
+      <EntityTypeMapping TypeName="SAC.Archivo">
+        <MappingFragment StoreEntitySet="Archivo">
+          <ScalarProperty Name="ArchivoFechaEliminacion" ColumnName="ArchivoFechaEliminacion" />
+          <ScalarProperty Name="RowGuid" ColumnName="RowGuid" />
+          <ScalarProperty Name="CuentaActivaFecha" ColumnName="CuentaActivaFecha" />
+          <ScalarProperty Name="CuentaActivaId" ColumnName="CuentaActivaId" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="ArchivoEstado" ColumnName="ArchivoEstado" />
+          <ScalarProperty Name="ArchivoExtension" ColumnName="ArchivoExtension" />
+          <ScalarProperty Name="ArchivoComentario" ColumnName="ArchivoComentario" />
+          <ScalarProperty Name="ArchivoMonto" ColumnName="ArchivoMonto" />
+          <ScalarProperty Name="ArchivoData" ColumnName="ArchivoData" />
+          <ScalarProperty Name="ArchivoFecha" ColumnName="ArchivoFecha" />
+          <ScalarProperty Name="ArchivoNombre" ColumnName="ArchivoNombre" />
+          <ScalarProperty Name="ArchivoVersion" ColumnName="ArchivoVersion" />
+          <ScalarProperty Name="ArchivoId" ColumnName="ArchivoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Log">
+      <EntityTypeMapping TypeName="SAC.Log">
+        <MappingFragment StoreEntitySet="Log">
+          <ScalarProperty Name="CuentaActivaFecha" ColumnName="CuentaActivaFecha" />
+          <ScalarProperty Name="CuentaActivaId" ColumnName="CuentaActivaId" />
+          <ScalarProperty Name="LogFecha" ColumnName="LogFecha" />
+          <ScalarProperty Name="LogEstadoId" ColumnName="LogEstadoId" />
+          <ScalarProperty Name="LogDescripcion" ColumnName="LogDescripcion" />
+          <ScalarProperty Name="LogId" ColumnName="LogId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="EditarUsuario" FunctionName="SAC.Store.EditarUsuario" />
+    <FunctionImportMapping FunctionImportName="EliminarUsuario" FunctionName="SAC.Store.EliminarUsuario" />
+    <FunctionImportMapping FunctionImportName="EditarClaveUsuario" FunctionName="SAC.Store.EditarClaveUsuario" />
+    <FunctionImportMapping FunctionImportName="EliminarCuentaActiva" FunctionName="SAC.Store.EliminarCuentaActiva" />
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="SAC.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+          <ScalarProperty Name="pwdEstado" ColumnName="pwdEstado" />
+          <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="PerfilId" ColumnName="PerfilId" />
+          <ScalarProperty Name="UsuarioEmail" ColumnName="UsuarioEmail" />
+          <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
+          <ScalarProperty Name="UsuarioNombre" ColumnName="UsuarioNombre" />
+          <ScalarProperty Name="UsuarioRut" ColumnName="UsuarioRut" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

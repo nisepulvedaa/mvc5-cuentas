@@ -1,0 +1,262 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-database "></i>Reportería
+
+
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-4">Año:</div>
+                                    <div class="col-sm-8">
+                                        <b>
+
+                                            <div class="form-group">
+                                                <select id="selectAño" name="selectAño" class="form-control select2" multiple="multiple" data-placeholder="Filtrar por Año">
+                                                    <option value="-1">Filtrar por Año</option>
+                                                    @Html.Raw(ViewBag.AñosSelect)
+                                                </select>
+                                            </div>
+
+
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-4">Mes:</div>
+                                    <div class="col-sm-8">
+                                        <b>
+                                            <div class="form-group">
+                                                <select id="selectMes" name="selectMes" class="form-control select2" multiple="multiple" data-placeholder="Filtrar por Mes">
+                                                    <option value="-1">Filtrar por Mes</option>
+                                                    <option value="1">Enero</option>
+                                                    <option value="2">Febrero</option>
+                                                    <option value="3">Marzo</option>
+                                                    <option value="4">Abril</option>
+                                                    <option value="5">Mayo</option>
+                                                    <option value="6">Junio</option>
+                                                    <option value="7">Julio</option>
+                                                    <option value="8">Agosto</option>
+                                                    <option value="9">Septiembre</option>
+                                                    <option value="10">Octubre</option>
+                                                    <option value="11">Noviembre</option>
+                                                    <option value="12">Diciembre</option>
+                                                </select>
+                                            </div>
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-4">Empresa:</div>
+                                    <div class="col-sm-8">
+                                        <b>
+
+                                            <div class="form-group">
+                                                <select id="selectEmpresa" name="selectEmpresa" class="form-control select2" multiple="multiple" data-placeholder="Filtrar por Empresas">
+                                                    <option value="-1">Todas las Empresas</option>
+                                                    @Html.Raw(ViewBag.EmpresasSelect)
+                                                </select>
+                                            </div>
+
+
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-4">Rubro:</div>
+                                    <div class="col-sm-8">
+                                        <b>
+                                            <div class="form-group">
+                                                <select id="selectRubro" name="selectRubros" class="form-control select2" multiple="multiple" data-placeholder="Filtrar por Rubros">
+                                                    <option value="-1">Todos los Rubros</option>
+                                                    @Html.Raw(ViewBag.RubrosSelect)
+                                                </select>
+                                            </div>
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+
+
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-4">Grupo:</div>
+                                    <div class="col-sm-8">
+                                        <b>
+
+                                            <div class="form-group">
+                                                <select id="selectGrupo" name="selectGrupos" class="form-control select2" multiple="multiple" data-placeholder="Filtrar por Grupos">
+                                                    <option value="-1">Todos los Grupos</option>
+                                                    @Html.Raw(ViewBag.GruposSelect)
+                                                </select>
+                                            </div>
+
+
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-4">Cuenta:</div>
+                                    <div class="col-sm-8">
+                                        <b>
+                                            <div class="form-group">
+                                                <select id="selectCuenta" name="selectCuentas" class="form-control select2" multiple="multiple" data-placeholder="Filtrar por Cuentas">
+                                                    <option value="-1">Todos las Cuentas</option>
+                                                    @Html.Raw(ViewBag.CuentasSelect)
+                                                </select>
+                                            </div>
+
+
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="col-sm-12">
+                                <div class="row" style="text-align : center ;">
+                                    <button class="btn btn-info blue " onclick="filtrar();"> Consultar</button>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-building "></i>Lista de Cuentas Asignadas
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+                        <div class="table-scrollable" style="padding:10px;">
+                            <table id="reportesTable" class="table table-striped table-bordered table-hover" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Empresa</th>
+                                        <th>Cuenta</th>
+                                        <th>Rubro</th>
+                                        <th>Grupo</th>
+                                        <th>Fecha</th>
+                                        <th>Dias Plazo</th>
+                                        <th>Estado</th>
+                                        <th>Analista</th>
+                                        <th>Validador</th>
+                                        <th>Certificador</th>
+                                        <th>Avance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @Html.Raw(ViewBag.Table)
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-sm-12">
+    <div class="row" style="text-align : center ;">
+        <button class="btn btn-info blue " onclick="descargar();"> Descargar Excel</button>
+    </div>
+</div>
+
+
+@section styles{
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Metronic/assets/global/plugins/select2/select2.css" rel="stylesheet" />
+
+}
+
+
+@section scripts {
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/js/reportes.js"></script>
+    <script src="~/Metronic/assets/global/plugins/select2/select2.min.js"></script>
+
+
+
+    <script>
+        $('.select2').each(function () {
+            $(this).select2();
+        });
+
+        $('#reportesTable').dataTable(datatables_options);
+        @*$('#cuentasActivasTable').dataTable(datatables_options);
+        $('#mm').val( @Html.Raw(ViewBag.MesSelect));
+        
+        var $form = null;
+        $(function () {
+
+            $form = $('#fileupload').fileupload({
+                dataType: 'json'
+            });
+
+        });
+        $('#fileupload').addClass('fileupload-processing');*@
+
+    </script>
+
+
+}
+
+

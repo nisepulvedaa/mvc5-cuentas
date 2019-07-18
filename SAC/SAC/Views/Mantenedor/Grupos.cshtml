@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "Grupos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-database "></i>Mantenedor de Grupos
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-scrollable" style="padding:10px;">
+                            <a href="#modalGrupos" data-toggle="modal" class="btn btn-info" onclick="nuevoGrupo();">
+                                Ingresar Grupo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-building "></i>Lista de Grupos
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-scrollable" style="padding:10px;">
+                            <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Descripcion</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @Html.Raw(ViewBag.Table)
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div aria-hidden="true" role="dialog" tabindex="-1" id="modalGrupos" class="modal fade bs-modal-lg" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                <h4 id="modal-title" class="modal-title">Ingresar Grupo</h4>
+            </div>
+            <div class="modal-body sacModal">
+                <form id="gruposForm">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Nombre Grupo</label>
+                                <div class="col-md-9">
+                                    <input type="text" id="nombreGrupo" name="nombreGrupo" placeholder="Nombre Grupo..." class="form-control">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Descripcion Rubro</label>
+                                <div class="col-md-9">
+                                    <textarea rows="3" class="form-control" name="descripcionGrupo" id="descripcionGrupo" placeholder="Descripcion Grupo..."></textarea>
+                                </div>
+                            </div>
+                            <input type="hidden" id="grupoId" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn default" type="button">Cerrar</button>
+                <button id="button-modal" class="btn blue" type="button" onclick="ingresarGrupos()">Ingresar Grupo</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section styles{
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/SAC.css" rel="stylesheet" />
+
+}
+
+@section scripts {
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    
+    <script src="~/Content/js/mantenedor.js"></script>
+
+    <script>
+
+        $('#example').dataTable(datatables_options);
+
+    </script>
+
+
+
+}
+

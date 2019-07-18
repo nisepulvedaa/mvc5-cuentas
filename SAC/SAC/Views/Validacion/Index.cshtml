@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <!--div class="row">
+            <div class="col-sm-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-database "></i>Validación de Cuentas
+
+
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-scrollable" style="padding:10px;">
+                            @*<a href="#" data-toggle="modal" class="btn btn-info" onclick="">
+                                    Agregar Cuentas
+                                </a>
+                                <a data-toggle="modal" class="btn btn-info" onclick="">
+                                    Cargar datos por Excel
+                                </a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div-->
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-building "></i>Lista de Cuentas para Validar
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+                        <div class="table-scrollable" style="padding:10px;">
+                            <table id="validadorTable" class="table table-striped table-bordered table-hover" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Empresa</th>
+                                        <th>Cuenta</th>
+                                        <th>Fecha</th>
+                                        <th>Dias Plazo</th>
+                                        <th>Total</th>
+                                        <th>Abono</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @Html.Raw(ViewBag.Table)
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-building "></i>Lista de Cuentas Validadas
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+                        <div class="table-scrollable" style="padding:10px;">
+                            <table id="validadorTable2" class="table table-striped table-bordered table-hover" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Empresa</th>
+                                        <th>Cuenta</th>
+                                        <th>Fecha</th>
+                                        <th>Dias Plazo</th>
+                                        <th>Total</th>
+                                        <th>Abono</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @Html.Raw(ViewBag.TableFinalizadas)
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+@section styles{
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/plugins/JQuery.FileUpload/css/jquery.fileupload.css" rel="stylesheet" />
+    <link href="~/Content/plugins/JQuery.FileUpload/css/jquery.fileupload-ui.css" rel="stylesheet" />
+}
+
+
+@section scripts {
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+
+
+    <script>
+        var tabla = $('#validadorTable').dataTable(datatables_options);
+
+        tabla.fnSort([[2, 'desc']]);
+
+        var tablafn = $('#validadorTable2').dataTable(datatables_options);
+
+        tablafn.fnSort([[2, 'desc']]);
+
+    </script>
+
+    @*<script>
+            var $form = null;
+            $(function () {
+
+                $form = $('#fileupload').fileupload({
+                    dataType: 'json'
+                });
+
+            });
+            $('#fileupload').addClass('fileupload-processing');
+
+        </script>*@
+
+
+}

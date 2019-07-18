@@ -1,0 +1,292 @@
+﻿.blockUI {
+    z-index: 100002 !important;
+}
+
+.blockOverlay {
+    z-index: 100001 !important;
+    opacity: 0.5 !important;
+}
+
+.blockMsg {
+    z-index: 100002 !important;
+}
+
+.blockUI img {
+    display: none;
+}
+
+
+table.dataTable {
+    border-collapse: collapse !important;
+}
+
+    table.dataTable td, table.dataTable th {
+        white-space: nowrap !important;
+    }
+
+
+.sacModal .row {
+    margin-bottom: 10px;
+}
+
+.navbar {
+    background-color: #012e72 !important;
+}
+
+.page-container, .page-sidebar-menu, .page-footer {
+    background-color: #012e72 !important;
+}
+
+.page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li > a,
+.page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li.open > a,
+.page-sidebar .page-sidebar-menu > li > a > i,
+.page-sidebar .page-sidebar-menu .sub-menu > li > a,
+.page-sidebar .page-sidebar-menu .sub-menu > li > a > i {
+    color: #fff !important;
+}
+
+.page-sidebar .page-sidebar-menu .sub-menu > li.active > a,
+.page-sidebar .page-sidebar-menu .sub-menu > li.active,
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu > li:hover > a,
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu > li.open > a,
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu > li.active > a,
+.page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu > li:hover > a,
+.page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu > li.open > a,
+.page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li .sub-menu > li.active > a {
+    color: #fff !important;
+    background-color: #0092c9 !important;
+}
+
+.page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li.active > a, .page-sidebar .page-sidebar-menu.page-sidebar-menu-light > li.active.open > a {
+    background: #0092c9 none repeat scroll 0 0;
+    border-left: 4px solid #1caf9a;
+    color: #fff;
+    font-weight: bold;
+}
+
+.btn-info, .btn-warning, .btn-success {
+    background-color: #0092c9;
+    border-color: #72b8f2;
+    color: #fff;
+}
+
+.portlet.box.blue-hoki > .portlet-title {
+    background-color: #012e72;
+}
+
+.cuentasTable {
+    width: 100%;
+    border: solid 1px #888;
+    border-collapse: collapse;
+    margin-bottom: 2px;
+}
+
+    .cuentasTable td {
+        padding: 2px;
+        font-size: 12px;
+        border: solid 1px #888;
+    }
+
+        .cuentasTable td:first-child {
+            width: 20px;
+        }
+
+        .cuentasTable td:nth-child(2) {
+            width: auto;
+        }
+
+    .cuentasTable .smtext {
+        font-size: 9px;
+    }
+
+.sweet-overlay {
+    z-index: 100000 !important;
+}
+
+.sweet-alert {
+    z-index: 100001 !important;
+}
+
+.tablad {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .tablad td {
+        padding: 3px;
+        border: solid 1px #CCC;
+    }
+
+.borderFiles {
+    border: solid 1px #DDD;
+    padding: 10px;
+}
+
+.archivoThumb {
+}
+
+    .archivoThumb img {
+        width: auto;
+        height: 128px;
+        cursor: pointer;
+    }
+
+    .archivoThumb .archivoThumbBorder {
+        border: solid 1px #CCC;
+        background-color: #EEE;
+        padding: 5px;
+        border-radius: 10px !important;
+        margin-bottom: 15px;
+    }
+
+    .archivoThumb .archivoThumbFile {
+        font-weight: bold;
+        font-size: 15px;
+        position: relative;
+        text-align: center;
+    }
+
+    .archivoThumb .archivoThumbData {
+        text-align: center;
+    }
+
+    .archivoThumb .archivoThumbSm {
+        font-weight: normal;
+        font-size: 11px;
+    }
+
+    .archivoThumb .spanSize {
+        font-weight: normal;
+        font-size: 18px;
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        right: 0px;
+        cursor: pointer;
+    }
+
+    .archivoThumb .spanSizeR {
+        font-weight: normal;
+        font-size: 18px;
+        position: absolute;
+        z-index: 1;
+        top: 28px;
+        right: 3px;
+        cursor: pointer;
+    }
+
+    .archivoThumb .spanSizeC {
+        font-weight: normal;
+        font-size: 18px;
+        position: absolute;
+        z-index: 1;
+        top: 58px;
+        right: 3px;
+        cursor: pointer;
+    }
+
+
+
+
+.sac-timeline-fix {
+}
+
+    .sac-timeline-fix::before {
+        left: 0px !important;
+        margin-left: 15px !important;
+    }
+
+
+    .sac-timeline-fix > li.timeline-noline::before {
+        left: 0px !important;
+        margin-left: 15px !important;
+    }
+
+    .sac-timeline-fix .timeline-time {
+        display: none !important;
+    }
+
+    .sac-timeline-fix .timeline-icon {
+        left: 0px !important;
+        margin: 5px 0 0 0 !important;
+        opacity: 1;
+        background-color: #fff !important;
+        color: #aaa !important;
+    }
+
+    .sac-timeline-fix .timeline-body {
+        margin: 0 0 15px 60px !important;
+        padding: 2px !important;
+    }
+
+    .sac-timeline-fix .timeline-text {
+        background-color: #fff;
+        color: #333;
+        height: 100%;
+        min-height: 60px;
+        padding: 5px;
+    }
+
+.sac_borderdiv {
+    border: solid 1px #ddd;
+    padding: 5px;
+    border-radius: 10px !important;
+    margin-bottom: 5px;
+}
+
+.sac_sm {
+    font-weight: normal;
+    font-size: 11px;
+}
+
+@media only screen and (max-width: 500px) {
+    .sac-timeline-fix .timeline-body {
+        margin: 15px 10px !important;
+    }
+
+    .sac-timeline-fix .timeline-icon {
+        opacity: 0;
+    }
+}
+
+#loglist {
+    display: none;
+}
+
+.loglistexpand {
+    cursor: pointer;
+}
+
+.loglistexpandholder {
+    text-align: center;
+    padding-top: 15px;
+}
+
+.sac_borderdiv .title {
+    font-weight: bold;
+}
+
+.cuentaEstado {
+    border: solid 2px #BBB;
+    color: #BBB;
+    display: inline-block;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    padding-top: 20px;
+    border-radius: 15px !important;
+}
+
+.cuentaStep {
+    color: #BBB;
+    display: inline-block;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    padding-top: 20px;
+    border-radius: 15px !important;
+}
+
+.portlet-title {
+    background-color: #0092c9 !important;
+}

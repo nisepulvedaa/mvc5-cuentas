@@ -1,0 +1,93 @@
+﻿@using System.Web.Optimization
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.2
+Version: 3.3.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+
+    <meta charset="utf-8" />
+    <title>Metronic | Login Options - Login Form 1</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="~/Metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    @Styles.Render("~/Styles/Login")
+
+
+
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="login" style="background-color: #ebebeb !important ;">
+    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+    <div class="menu-toggler sidebar-toggler">
+    </div>
+    <!-- END SIDEBAR TOGGLER BUTTON -->
+    <!-- BEGIN LOGO -->
+    <div class="logo">
+        <a href="index.html">
+            <img height="40" src="~/Metronic/assets/admin/layout/img/logo_saam.png" alt="" />
+        </a>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN LOGIN -->
+    <div class="content" style="background-color: #ffffff">
+        <!-- BEGIN LOGIN FORM -->
+        <form id="ResertForm" class="login-form" method="post" onsubmit="return false;">
+            <h3 style="color:#4b77be;">Recuperación</h3>
+            <div style="text-align: justify">Su Password ha sido Reseteado, Su clave temporal de acceso ha sido enviada a su correo<br><br></div>
+
+            <div class="form-group">
+                <button type="button" class="btn btn-success uppercase pull-right" style="background-color: #4b77be !important" onclick="window.location='../Login/Index'">Volver</button>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="copyright">
+        2016 © Brains. Consulting and Research
+    </div>
+
+    <!--[if lt IE 9]>
+    <script src="~/Metronic/assets/global/plugins/respond.min.js"></script>
+    <script src="~/Metronic/assets/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="~/Metronic/assets/global/plugins/jquery.min.js"></script>
+    @Scripts.Render("~/Scripts/Login")
+
+    <script src="~/Content/js/perfil.js"></script>
+
+    <script>
+jQuery(document).ready(function() {
+    Metronic.init(); // init metronic core components
+    Layout.init(); // init current layout
+    Login.init();
+    Demo.init();
+});
+    </script>
+</body>
+</html>

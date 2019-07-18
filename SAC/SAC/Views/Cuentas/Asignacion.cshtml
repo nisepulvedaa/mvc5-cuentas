@@ -1,0 +1,463 @@
+﻿
+@{
+    ViewBag.Title = "Asignacion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-database "></i>Asignación de Cuentas
+
+
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-scrollable" style="padding:10px;">
+                            <a href="#modalAgregarCuentas" data-toggle="modal" class="btn btn-info" onclick="LimpiarModalAgregarCuentas();">
+                                Agregar Cuentas
+                            </a>
+                            <a data-toggle="modal" class="btn btn-info" onclick="ingresarCuentasMasivas();">
+                                Cargar datos por Excel
+                            </a>
+
+                            <a href="~/Archivos/Plantillas/Plantilla_asignacion_masiva.xlsx" class="pull-right" style="padding-top: 5px;">
+                                <span class="fa fa-file-excel-o"> </span>
+                                Descargar Formato
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="portlet box blue-hoki">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-building "></i>Lista de Cuentas Asignadas
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+                        <div class="row">
+                            <div class="col-sm-1">
+
+                            </div>
+                            <div class="col-sm-2" style="white-space : nowrap;" onchange="RecargarTabla()">
+                                <label>Año: </label>
+                                <select class="form-control" id="yyyy" name="yyyy" style="display : inline-block;">
+                                    @Html.Raw(ViewBag.AñoSelect)
+                                </select>
+                            </div>
+
+                            <div class="col-sm-1">
+
+                            </div>
+                            <div class="col-sm-2" style="white-space : nowrap;">
+                                <label>Mes: </label>
+                                <select class="form-control" id="mm" name="mm" style="display : inline-block;" onchange="RecargarTabla()">
+                                    <option value="1">Enero</option>
+                                    <option value="2">Febrero</option>
+                                    <option value="3">Marzo</option>
+                                    <option value="4">Abril</option>
+                                    <option value="5">Mayo</option>
+                                    <option value="6">Junio</option>
+                                    <option value="7">Julio</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Septiembre</option>
+                                    <option value="10">Octubre</option>
+                                    <option value="11">Noviembre</option>
+                                    <option value="12">Diciembre</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+
+                            </div>
+
+                        </div>
+
+                        <div class="table-scrollable" style="padding:10px;">
+                            <table id="cuentasActivasTable" class="table table-striped table-bordered table-hover" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Empresa</th>
+                                        <th>Cuenta</th>
+                                        <th>Total</th>
+                                        <th>Analista</th>
+                                        <th>Validador</th>
+                                        <th>Certificador</th>
+                                        <th>Dias Plazo</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @Html.Raw(ViewBag.TablaCuentas)
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div aria-hidden="true" role="dialog" tabindex="-1" id="modalAgregarCuentas" class="modal fade bs-modal-lg" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                <h4 id="modal-title" class="modal-title">Agregar Cuentas - <span id="fechaAgregarCuentas"></span></h4>
+            </div>
+            <div class="modal-body sacModal">
+                <form id="cuentasForm">
+
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select id="selectEmpresa" name="selectEmpresa" class="form-control" onchange="FiltrarCuentas()">
+                                    <option value="-1">Todas las Empresas</option>
+                                    @Html.Raw(ViewBag.EmpresasSelect)
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select id="selectRubro" name="selectRubros" class="form-control" onchange="FiltrarCuentas()">
+                                    <option value="-1">Todos los Rubros</option>
+                                    @Html.Raw(ViewBag.RubrosSelect)
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select id="selectGrupo" name="selectGrupos" class="form-control" onchange="FiltrarCuentas()">
+                                    <option value="-1">Todos los Grupos</option>
+                                    @Html.Raw(ViewBag.GruposSelect)
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            Cuentas
+                            <div class="row" id="cuentasHolder">
+                                @Html.Raw(ViewBag.cuentasNoActivas)
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="text-align: center;">
+                            <a class="btn blue" onclick="CuentasSeleccionarTodo()">Seleccionar Todo</a> &nbsp;
+                            <a class="btn blue" onclick="CuentasLimpiarSeleccion()">Limpiar Seleccion</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Analista</label>
+
+                                        <select id="analista" class="form-control">
+                                            @Html.Raw(ViewBag.UsuariosSelect)
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Validador</label>
+
+                                        <select id="validador" class="form-control">
+                                            @Html.Raw(ViewBag.UsuariosSelect)
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Certificador</label>
+
+                                        <select id="certificador" class="form-control">
+                                            @Html.Raw(ViewBag.UsuariosSelect)
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-2">
+
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-md-6 control-label" style="padding-top: 4px;">Dias&nbsp;de&nbsp;Plazo</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" id="plazo" name="plazo" value="30">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-md-6 control-label" style="padding-top: 4px;">Cargos/Abonos</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" id="total" name="total" value="30">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn default" type="button">Cerrar</button>
+                <button id="button-modal" class="btn blue" type="button" onclick="agregarCuentas()">Agregar Cuentas</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div aria-hidden="true" role="dialog" tabindex="-1" id="modalAsignacionMasiva" class="modal fade bs-modal-lg" style="display: none;">
+    <div class="modal-dialog " style="width: 80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                <h4 id="modal-title" class="modal-title">Asignar Cuentas de Forma Masiva</h4>
+            </div>
+
+
+            <div class="modal-body sacModal" style="min-height: 400px;">
+
+
+                <form id="fileupload" method="POST" enctype="multipart/form-data" data-url="@Url.Action("Upload","Archivo")">
+                    <div class="row fileupload-buttonbar fupload_botones">
+                        <div class="col-lg-7">
+                            <!-- The fileinput-button span is used to style the file input field as button -->
+                            <span class="btn btn-success fileinput-button">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <span>Agregar Archivo...</span>
+                                <input type="file" name="files[]" multiple onclick="upload_step1();">
+                            </span>
+
+                        </div>
+                        <!-- The global progress state -->
+                        <div class="col-lg-5 fileupload-progress fade">
+                            <!-- The global progress bar -->
+                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                            </div>
+                            <!-- The extended global progress state -->
+                            <div class="progress-extended">&nbsp;</div>
+                        </div>
+                    </div>
+                    <!-- The global progress state -->
+                    <!-- The table listing the files available for upload/download -->
+                    <table role="presentation" class="table table-striped fupload_tbody_files"><tbody class="files"></tbody></table>
+                </form>
+                <br>
+
+                <!-- The template to display files available for upload -->
+                <script id="template-upload" type="text/x-tmpl">
+                    {% for (var i=0, file; file=o.files[i]; i++) { %}
+                    <tr class="template-upload fade">
+                        <td>
+                            <span class="preview"></span>
+                        </td>
+                        <td>
+                            <p class="name">{%=file.name%}</p>
+                            <strong class="error text-danger"></strong>
+                        </td>
+                        <td>
+                            <p class="size">Processing...</p>
+                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+                        </td>
+                        <td>
+                            {% if (!i && !o.options.autoUpload) { %}
+                            <button class="btn btn-primary start" disabled id="fupload_btn_subir">
+                                <i class="fa fa-upload"></i>
+                                <span>Subir</span>
+                            </button>
+                            {% } %}
+                            {% if (!i) { %}
+                            <button id="fupload_btn_cancel" class="btn btn-warning cancel">
+                                <i class="fa fa-ban"></i>
+                                <span>Cancelar</span>
+                            </button>
+                            {% } %}
+                        </td>
+                    </tr>
+                    {% } %}
+                </script>
+                <!-- The template to display files available for download -->
+                <script id="template-download" type="text/x-tmpl">
+                    {% for (var i=0, file; file=o.files[i]; i++) { %}
+                    <tr class="template-download fade">
+                        <td>
+                            <span class="preview">
+                                {% if (file.thumbnailUrl) { %}
+                                <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                                {% } %}
+                            </span>
+                        </td>
+                        <td>
+                            <p class="name">
+                                {% if (file.url) { %}
+                                <a class="fupload_file_name" href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                                {% } else { %}
+                                <span>{%=file.name%}</span>
+                                {% } %}
+                            </p>
+                            {% if (file.error) { %}
+                            <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+                            {% } %}
+                        </td>
+                        <td>
+                            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+                        </td>
+                        <td>
+                            {% if (file.deleteUrl) { %}
+                            <button id="btn_delete" class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deletewithcredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+                                <i class="fa fa-trash"></i>
+                                <span>Eliminar</span>
+                            </button>
+                            <input type="checkbox" name="delete" value="1" class="toggle">
+                            {% } else { %}
+                            <button class="btn btn-warning cancel">
+                                <i class="glyphicon glyphicon-ban-circle"></i>
+                                <span>Cancel</span>
+                            </button>
+                            {% } %}
+                        </td>
+                    </tr>
+                    {% } %}
+                </script>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="tableCargaMasiva" class="table table-striped table-bordered table-hover" cellspacing="0" style="display:none;">
+                            <thead>
+                                <tr>
+                                    <th>Empresa</th>
+                                    <th>Cuenta</th>
+                                    <th>Cargos/Abonos</th>
+                                    <th>Analista</th>
+                                    <th>Validador</th>
+                                    <th>Certificador</th>
+                                    <th>Dias Plazo</th>
+                                    <th>Fecha</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button id="button-modal_close" data-dismiss="modal" class="btn default" type="button">Cerrar</button>
+                <button id="button-modal_cargarcuentas" class="btn disabled" type="button" onclick="cargarAsignacioonCuentasMasiva()">Cargar Cuentas</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div style="display: none">
+    <select id="usuarios">
+        @Html.Raw(ViewBag.UsuariosSelect)
+    </select>
+</div>
+
+
+@section styles{
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/plugins/JQuery.FileUpload/css/jquery.fileupload.css" rel="stylesheet" />
+    <link href="~/Content/plugins/JQuery.FileUpload/css/jquery.fileupload-ui.css" rel="stylesheet" />
+}
+
+
+@section scripts {
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/js/cuentas.js"></script>
+    <script src="~/Content/js/asignacion.js"></script>
+    <script src="~/Content/plugins/JQuery.FileUpload/vendor/jquery.ui.widget.js"></script>
+    <script src="~/Content/plugins/JQuery.FileUpload/tmpl.min.js"></script>
+    <script src="~/Content/plugins/JQuery.FileUpload/load-image.all.min.js"></script>
+    <script src="~/Content/plugins/JQuery.FileUpload/canvas-to-blob.min.js"></script>
+    <script src="~/Content/plugins/JQuery.FileUpload/jquery.iframe-transport.js"></script>
+    <script src="~/Content/plugins/JQuery.FileUpload/jquery.fileupload.js"></script>
+
+    <script src="~/Content/plugins/JQuery.FileUpload/jquery.fileupload-process.js"></script>
+    <script src="~/Content/plugins/JQuery.FileUpload/jquery.fileupload-image.js"></script>
+    <script src="~/Content/plugins/JQuery.FileUpload/jquery.fileupload-audio.js"></script>
+    <script src="~/Content/plugins/JQuery.FileUpload/jquery.fileupload-video.js"></script>
+    <script src="~/Content/plugins/JQuery.FileUpload/jquery.fileupload-validate.js"></script>
+    <script src="~/Content/plugins/JQuery.FileUpload/jquery.fileupload-ui.js"></script>
+
+
+    <script>
+        $('#cuentasActivasTable').dataTable(datatables_options);
+        $('#mm').val( @Html.Raw(ViewBag.MesSelect));
+
+    </script>
+
+    <script>
+        var $form = null;
+        $(function () {
+
+            $form = $('#fileupload').fileupload({
+                dataType: 'json'
+            });
+
+        });
+        $('#fileupload').addClass('fileupload-processing');
+
+    </script>
+
+
+}
+

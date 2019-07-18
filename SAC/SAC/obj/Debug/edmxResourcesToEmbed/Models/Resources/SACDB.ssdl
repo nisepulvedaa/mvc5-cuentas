@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SAC.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Archivo">
+    <Key>
+      <PropertyRef Name="ArchivoId" />
+      <PropertyRef Name="ArchivoVersion" />
+    </Key>
+    <Property Name="ArchivoId" Type="int" Nullable="false" />
+    <Property Name="ArchivoVersion" Type="int" Nullable="false" />
+    <Property Name="ArchivoNombre" Type="varchar" MaxLength="500" />
+    <Property Name="ArchivoFecha" Type="datetime" />
+    <Property Name="ArchivoData" Type="varbinary(max)" />
+    <Property Name="ArchivoMonto" Type="float" />
+    <Property Name="ArchivoComentario" Type="text" />
+    <Property Name="ArchivoFechaEliminacion" Type="datetime" />
+    <Property Name="ArchivoExtension" Type="varchar" MaxLength="10" />
+    <Property Name="ArchivoEstado" Type="int" />
+    <Property Name="UsuarioCreacion" Type="int" />
+    <Property Name="CuentaActivaId" Type="int" />
+    <Property Name="CuentaActivaFecha" Type="date" />
+    <Property Name="RowGuid" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cuenta">
+    <Key>
+      <PropertyRef Name="CuentaId" />
+    </Key>
+    <Property Name="CuentaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CuentaNumero" Type="varchar" MaxLength="500" />
+    <Property Name="CuentaNombre" Type="varchar" MaxLength="500" />
+    <Property Name="CuentaEmpresa" Type="int" />
+    <Property Name="CuentaRubro" Type="int" />
+    <Property Name="CuentaGrupo" Type="int" />
+    <Property Name="CuentaDescripcion" Type="text" />
+    <Property Name="UsuarioCreacion" Type="int" />
+    <Property Name="FechaCreacion" Type="date" />
+  </EntityType>
+  <EntityType Name="CuentaActiva">
+    <Key>
+      <PropertyRef Name="CuentaActivaId" />
+      <PropertyRef Name="CuentaActivaFecha" />
+    </Key>
+    <Property Name="CuentaActivaId" Type="int" Nullable="false" />
+    <Property Name="CuentaActivaFecha" Type="date" Nullable="false" />
+    <Property Name="CuentaActivaDiasPlazo" Type="int" />
+    <Property Name="CuentaActivaTotal" Type="int" />
+    <Property Name="AnalistaId" Type="int" />
+    <Property Name="ValidadorId" Type="int" />
+    <Property Name="CertificadorId" Type="int" />
+    <Property Name="CuentaActivaEstado" Type="int" />
+    <Property Name="UsuarioCreacion" Type="int" />
+    <Property Name="FechaCreacion" Type="date" />
+  </EntityType>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="EmpresaId" />
+    </Key>
+    <Property Name="EmpresaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpresaRut" Type="varchar" MaxLength="250" />
+    <Property Name="EmpresaRazonSocial" Type="varchar" MaxLength="500" />
+    <Property Name="EmpresaGiro" Type="varchar" MaxLength="500" />
+    <Property Name="EmpresaLogo" Type="varchar(max)" />
+    <Property Name="UsuarioCreacion" Type="int" />
+    <Property Name="FechaCreacion" Type="date" />
+  </EntityType>
+  <EntityType Name="EstadoCuenta">
+    <Key>
+      <PropertyRef Name="EstadoId" />
+    </Key>
+    <Property Name="EstadoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EstadoNombre" Type="varchar" MaxLength="500" />
+    <Property Name="UsuarioCreacion" Type="int" />
+    <Property Name="FechaCreacion" Type="date" />
+  </EntityType>
+  <EntityType Name="Grupo">
+    <Key>
+      <PropertyRef Name="GrupoId" />
+    </Key>
+    <Property Name="GrupoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GrupoNombre" Type="varchar" MaxLength="500" />
+    <Property Name="GrupoDescripcion" Type="text" />
+    <Property Name="UsuarioCreacion" Type="int" />
+    <Property Name="FechaCreacion" Type="date" />
+  </EntityType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LogDescripcion" Type="text" />
+    <Property Name="LogEstadoId" Type="int" />
+    <Property Name="LogFecha" Type="datetime" />
+    <Property Name="CuentaActivaId" Type="int" />
+    <Property Name="CuentaActivaFecha" Type="date" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="PerfilId" />
+    </Key>
+    <Property Name="PerfilId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PerfilNombre" Type="varchar" MaxLength="500" />
+    <Property Name="UsuarioCreacion" Type="int" />
+    <Property Name="FechaCreacion" Type="date" />
+  </EntityType>
+  <EntityType Name="Rubro">
+    <Key>
+      <PropertyRef Name="RubroId" />
+    </Key>
+    <Property Name="RubroId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RubroNombre" Type="varchar" MaxLength="500" />
+    <Property Name="RubroDescripcion" Type="text" />
+    <Property Name="UsuarioCreacion" Type="int" />
+    <Property Name="FechaCreacion" Type="date" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="UsuarioId" />
+    </Key>
+    <Property Name="UsuarioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsuarioRut" Type="varchar" MaxLength="50" />
+    <Property Name="UsuarioNombre" Type="varchar" MaxLength="500" />
+    <Property Name="EmpresaId" Type="int" />
+    <Property Name="UsuarioEmail" Type="varchar" MaxLength="500" />
+    <Property Name="PerfilId" Type="int" />
+    <Property Name="Username" Type="varchar" MaxLength="500" />
+    <Property Name="Pwd" Type="varchar" MaxLength="500" />
+    <Property Name="pwdEstado" Type="int" />
+    <Property Name="UsuarioCreacion" Type="int" />
+    <Property Name="FechaCreacion" Type="date" />
+  </EntityType>
+  <Association Name="FK_Archivo_CuentaActiva">
+    <End Role="CuentaActiva" Type="Self.CuentaActiva" Multiplicity="0..1" />
+    <End Role="Archivo" Type="Self.Archivo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CuentaActiva">
+        <PropertyRef Name="CuentaActivaId" />
+        <PropertyRef Name="CuentaActivaFecha" />
+      </Principal>
+      <Dependent Role="Archivo">
+        <PropertyRef Name="CuentaActivaId" />
+        <PropertyRef Name="CuentaActivaFecha" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cuenta_Empresa">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="EmpresaId" />
+      </Principal>
+      <Dependent Role="Cuenta">
+        <PropertyRef Name="CuentaEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cuenta_Grupo">
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="0..1" />
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="GrupoId" />
+      </Principal>
+      <Dependent Role="Cuenta">
+        <PropertyRef Name="CuentaGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cuenta_Rubro">
+    <End Role="Rubro" Type="Self.Rubro" Multiplicity="0..1" />
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rubro">
+        <PropertyRef Name="RubroId" />
+      </Principal>
+      <Dependent Role="Cuenta">
+        <PropertyRef Name="CuentaRubro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CuentaActiva_Analistas">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="CuentaActiva" Type="Self.CuentaActiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioId" />
+      </Principal>
+      <Dependent Role="CuentaActiva">
+        <PropertyRef Name="AnalistaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CuentaActiva_Certificador">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="CuentaActiva" Type="Self.CuentaActiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioId" />
+      </Principal>
+      <Dependent Role="CuentaActiva">
+        <PropertyRef Name="CertificadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CuentaActiva_Cuenta">
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="1" />
+    <End Role="CuentaActiva" Type="Self.CuentaActiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cuenta">
+        <PropertyRef Name="CuentaId" />
+      </Principal>
+      <Dependent Role="CuentaActiva">
+        <PropertyRef Name="CuentaActivaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CuentaActiva_Estados">
+    <End Role="EstadoCuenta" Type="Self.EstadoCuenta" Multiplicity="0..1" />
+    <End Role="CuentaActiva" Type="Self.CuentaActiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoCuenta">
+        <PropertyRef Name="EstadoId" />
+      </Principal>
+      <Dependent Role="CuentaActiva">
+        <PropertyRef Name="CuentaActivaEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CuentaActiva_Validador">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="CuentaActiva" Type="Self.CuentaActiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioId" />
+      </Principal>
+      <Dependent Role="CuentaActiva">
+        <PropertyRef Name="ValidadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Log_CuentaActiva">
+    <End Role="CuentaActiva" Type="Self.CuentaActiva" Multiplicity="0..1" />
+    <End Role="Log" Type="Self.Log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CuentaActiva">
+        <PropertyRef Name="CuentaActivaId" />
+        <PropertyRef Name="CuentaActivaFecha" />
+      </Principal>
+      <Dependent Role="Log">
+        <PropertyRef Name="CuentaActivaId" />
+        <PropertyRef Name="CuentaActivaFecha" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Log_EstadoCuenta">
+    <End Role="EstadoCuenta" Type="Self.EstadoCuenta" Multiplicity="0..1" />
+    <End Role="Log" Type="Self.Log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoCuenta">
+        <PropertyRef Name="EstadoId" />
+      </Principal>
+      <Dependent Role="Log">
+        <PropertyRef Name="LogEstadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USUARIOS_EMPRESAS">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="EmpresaId" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="EmpresaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USUARIOS_PERFIL">
+    <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="PerfilId" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="PerfilId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ActualizarPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UsuarioId" Type="int" Mode="In" />
+    <Parameter Name="Pwd" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="AsignarCuentaActiva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cuentaActivaId" Type="int" Mode="In" />
+    <Parameter Name="cuentaActivaFecha" Type="date" Mode="In" />
+    <Parameter Name="total" Type="int" Mode="In" />
+    <Parameter Name="cuentaActivaAnalista" Type="int" Mode="In" />
+    <Parameter Name="cuentaActivaValidador" Type="int" Mode="In" />
+    <Parameter Name="cuentaActivaCertificador" Type="int" Mode="In" />
+    <Parameter Name="cuentaActivaDiasPlazo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="CambiarEstadoCuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="logDescripcion" Type="text" Mode="In" />
+    <Parameter Name="logEstadoId" Type="int" Mode="In" />
+    <Parameter Name="logCuentaActivaId" Type="int" Mode="In" />
+    <Parameter Name="CuentaActivaFecha" Type="date" Mode="In" />
+  </Function>
+  <Function Name="EditarArchivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="archivoId" Type="int" Mode="In" />
+    <Parameter Name="archivoVersion" Type="int" Mode="In" />
+    <Parameter Name="archivoNombre" Type="varchar" Mode="In" />
+    <Parameter Name="archivoMonto" Type="int" Mode="In" />
+    <Parameter Name="archivoComentario" Type="varchar" Mode="In" />
+    <Parameter Name="archivoUsuarioId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EditarClaveUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="usuarioId" Type="int" Mode="In" />
+    <Parameter Name="pwd" Type="varchar" Mode="In" />
+    <Parameter Name="usuarioCreacion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EditarCuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cuentaId" Type="int" Mode="In" />
+    <Parameter Name="cuentaNumero" Type="varchar" Mode="In" />
+    <Parameter Name="cuentaNombre" Type="varchar" Mode="In" />
+    <Parameter Name="cuentaEmpresa" Type="int" Mode="In" />
+    <Parameter Name="cuentaRubro" Type="int" Mode="In" />
+    <Parameter Name="cuentaGrupo" Type="int" Mode="In" />
+    <Parameter Name="cuentaDescripcion" Type="text" Mode="In" />
+    <Parameter Name="usuarioId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EditarEmpresa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="empresaId" Type="int" Mode="In" />
+    <Parameter Name="empresaRut" Type="varchar" Mode="In" />
+    <Parameter Name="empresaRazonSocial" Type="varchar" Mode="In" />
+    <Parameter Name="empresaGiro" Type="varchar" Mode="In" />
+    <Parameter Name="empresaLogo" Type="varchar(max)" Mode="In" />
+    <Parameter Name="usuarioId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EditarGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="grupoId" Type="int" Mode="In" />
+    <Parameter Name="grupoNombre" Type="varchar" Mode="In" />
+    <Parameter Name="grupoDescripcion" Type="text" Mode="In" />
+    <Parameter Name="usuarioId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EditarRubro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="rubroId" Type="int" Mode="In" />
+    <Parameter Name="rubroNombre" Type="varchar" Mode="In" />
+    <Parameter Name="rubroDescripcion" Type="text" Mode="In" />
+    <Parameter Name="usuarioId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EditarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="usuarioId" Type="int" Mode="In" />
+    <Parameter Name="empresaUsuario" Type="int" Mode="In" />
+    <Parameter Name="usuarioNombre" Type="varchar" Mode="In" />
+    <Parameter Name="usuarioEmail" Type="varchar" Mode="In" />
+    <Parameter Name="perfilUsuario" Type="int" Mode="In" />
+    <Parameter Name="usuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="usuarioRut" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="EliminarArchivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="archivoId" Type="int" Mode="In" />
+    <Parameter Name="archivoVersion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EliminarCuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cuentaId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EliminarCuentaActiva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cuentaActivaId" Type="int" Mode="In" />
+    <Parameter Name="cuentaActivaFecha" Type="date" Mode="In" />
+  </Function>
+  <Function Name="EliminarEmpresa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="empresaId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EliminarGrupo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="grupoId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EliminarRubro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="rubroId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EliminarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="usuarioId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="IngresarArchivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ArchivoNombre" Type="varchar" Mode="In" />
+    <Parameter Name="ArchivoData" Type="varbinary(max)" Mode="In" />
+    <Parameter Name="ArchivoMonto" Type="float" Mode="In" />
+    <Parameter Name="ArchivoComentario" Type="text" Mode="In" />
+    <Parameter Name="ArchivoExtension" Type="varchar" Mode="In" />
+    <Parameter Name="UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="CuentaActivaId" Type="int" Mode="In" />
+    <Parameter Name="CuentaActivaFecha" Type="date" Mode="In" />
+  </Function>
+  <Function Name="IngresarCuenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cuentaNumero" Type="varchar" Mode="In" />
+    <Parameter Name="cuentaNombre" Type="varchar" Mode="In" />
+    <Parameter Name="cuentaEmpresa" Type="int" Mode="In" />
+    <Parameter Name="cuentaRubro" Type="int" Mode="In" />
+    <Parameter Name="cuentaGrupo" Type="int" Mode="In" />
+    <Parameter Name="cuentaDescripcion" Type="text" Mode="In" />
+    <Parameter Name="usuarioCreacion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="IngresarCuentaActiva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cuentaActivaId" Type="int" Mode="In" />
+    <Parameter Name="cuentaActivaFecha" Type="date" Mode="In" />
+    <Parameter Name="cuentaActivaTotal" Type="int" Mode="In" />
+    <Parameter Name="cuentaActivaAnalista" Type="int" Mode="In" />
+    <Parameter Name="cuentaActivaValidador" Type="int" Mode="In" />
+    <Parameter Name="cuentaActivaCertificador" Type="int" Mode="In" />
+    <Parameter Name="cuentaActivaDiasPlazo" Type="int" Mode="In" />
+    <Parameter Name="UsuarioCreacion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="IngresarEmpresa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmpresaRut" Type="varchar" Mode="In" />
+    <Parameter Name="EmpresaRazonSocial" Type="varchar" Mode="In" />
+    <Parameter Name="EmpresaGiro" Type="varchar" Mode="In" />
+    <Parameter Name="EmpresaLogo" Type="varchar(max)" Mode="In" />
+    <Parameter Name="UsuarioCreacion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="IngresarGrupos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="grupoNombre" Type="varchar" Mode="In" />
+    <Parameter Name="grupoDescripcion" Type="text" Mode="In" />
+    <Parameter Name="usuarioCreacion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="IngresarRubros" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="rubroNombre" Type="varchar" Mode="In" />
+    <Parameter Name="rubroDescripcion" Type="text" Mode="In" />
+    <Parameter Name="UsuarioCreacion" Type="int" Mode="In" />
+  </Function>
+  <Function Name="IngresarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="usuarioNombre" Type="varchar" Mode="In" />
+    <Parameter Name="empresaId" Type="int" Mode="In" />
+    <Parameter Name="usuarioEmail" Type="varchar" Mode="In" />
+    <Parameter Name="perfilId" Type="int" Mode="In" />
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="pwd" Type="varchar" Mode="In" />
+    <Parameter Name="usuarioId" Type="int" Mode="In" />
+    <Parameter Name="usuarioRut" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="IngresarVersion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="archivoId" Type="int" Mode="In" />
+    <Parameter Name="archivoVersion" Type="int" Mode="In" />
+    <Parameter Name="ArchivoNombre" Type="varchar" Mode="In" />
+    <Parameter Name="ArchivoMonto" Type="int" Mode="In" />
+    <Parameter Name="ArchivoComentario" Type="varchar" Mode="In" />
+    <Parameter Name="ArchivoData" Type="varbinary(max)" Mode="In" />
+    <Parameter Name="UsuarioCreacion" Type="int" Mode="In" />
+    <Parameter Name="ArchivoExtension" Type="varchar" Mode="In" />
+    <Parameter Name="CuentaActivaId" Type="int" Mode="In" />
+    <Parameter Name="CuentaActivaFecha" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="ObtenerAñosDistintos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SACLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserName" Type="varchar" Mode="In" />
+    <Parameter Name="PassWord" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="SACStoreContainer">
+    <EntitySet Name="Archivo" EntityType="Self.Archivo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cuenta" EntityType="Self.Cuenta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CuentaActiva" EntityType="Self.CuentaActiva" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstadoCuenta" EntityType="Self.EstadoCuenta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Grupo" EntityType="Self.Grupo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rubro" EntityType="Self.Rubro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Archivo_CuentaActiva" Association="Self.FK_Archivo_CuentaActiva">
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+      <End Role="Archivo" EntitySet="Archivo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cuenta_Empresa" Association="Self.FK_Cuenta_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="Cuenta" EntitySet="Cuenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cuenta_Grupo" Association="Self.FK_Cuenta_Grupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="Cuenta" EntitySet="Cuenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cuenta_Rubro" Association="Self.FK_Cuenta_Rubro">
+      <End Role="Rubro" EntitySet="Rubro" />
+      <End Role="Cuenta" EntitySet="Cuenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CuentaActiva_Analistas" Association="Self.FK_CuentaActiva_Analistas">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CuentaActiva_Certificador" Association="Self.FK_CuentaActiva_Certificador">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CuentaActiva_Cuenta" Association="Self.FK_CuentaActiva_Cuenta">
+      <End Role="Cuenta" EntitySet="Cuenta" />
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CuentaActiva_Estados" Association="Self.FK_CuentaActiva_Estados">
+      <End Role="EstadoCuenta" EntitySet="EstadoCuenta" />
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CuentaActiva_Validador" Association="Self.FK_CuentaActiva_Validador">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Log_CuentaActiva" Association="Self.FK_Log_CuentaActiva">
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+      <End Role="Log" EntitySet="Log" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Log_EstadoCuenta" Association="Self.FK_Log_EstadoCuenta">
+      <End Role="EstadoCuenta" EntitySet="EstadoCuenta" />
+      <End Role="Log" EntitySet="Log" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USUARIOS_EMPRESAS" Association="Self.FK_USUARIOS_EMPRESAS">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USUARIOS_PERFIL" Association="Self.FK_USUARIOS_PERFIL">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

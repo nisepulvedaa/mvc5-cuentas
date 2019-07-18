@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SAC" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cuenta">
+    <Key>
+      <PropertyRef Name="CuentaId" />
+    </Key>
+    <Property Name="CuentaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CuentaNumero" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CuentaNombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CuentaEmpresa" Type="Int32" />
+    <Property Name="CuentaRubro" Type="Int32" />
+    <Property Name="CuentaGrupo" Type="Int32" />
+    <Property Name="CuentaDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="UsuarioCreacion" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Grupo" Relationship="Self.FK_Cuenta_Grupo" FromRole="Cuenta" ToRole="Grupo" />
+    <NavigationProperty Name="Rubro" Relationship="Self.FK_Cuenta_Rubro" FromRole="Cuenta" ToRole="Rubro" />
+    <NavigationProperty Name="Empresa" Relationship="SAC.FK_Cuenta_Empresa" FromRole="Cuenta" ToRole="Empresa" />
+    <NavigationProperty Name="CuentaActiva" Relationship="SAC.FK_CuentaActiva_Cuenta" FromRole="Cuenta" ToRole="CuentaActiva" />
+  </EntityType>
+  <EntityType Name="EstadoCuenta">
+    <Key>
+      <PropertyRef Name="EstadoId" />
+    </Key>
+    <Property Name="EstadoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EstadoNombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="UsuarioCreacion" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="CuentaActiva" Relationship="SAC.FK_CuentaActiva_Estados" FromRole="EstadoCuenta" ToRole="CuentaActiva" />
+    <NavigationProperty Name="Log" Relationship="SAC.FK_Log_EstadoCuenta" FromRole="EstadoCuenta" ToRole="Log" />
+  </EntityType>
+  <EntityType Name="Grupo">
+    <Key>
+      <PropertyRef Name="GrupoId" />
+    </Key>
+    <Property Name="GrupoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GrupoNombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="GrupoDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="UsuarioCreacion" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cuenta" Relationship="Self.FK_Cuenta_Grupo" FromRole="Grupo" ToRole="Cuenta" />
+  </EntityType>
+  <EntityType Name="Perfil">
+    <Key>
+      <PropertyRef Name="PerfilId" />
+    </Key>
+    <Property Name="PerfilId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PerfilNombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="UsuarioCreacion" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Usuario" Relationship="SAC.FK_USUARIOS_PERFIL" FromRole="Perfil" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Rubro">
+    <Key>
+      <PropertyRef Name="RubroId" />
+    </Key>
+    <Property Name="RubroId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RubroNombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="RubroDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="UsuarioCreacion" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cuenta" Relationship="Self.FK_Cuenta_Rubro" FromRole="Rubro" ToRole="Cuenta" />
+  </EntityType>
+  <Association Name="FK_Cuenta_Grupo">
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="0..1" />
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="GrupoId" />
+      </Principal>
+      <Dependent Role="Cuenta">
+        <PropertyRef Name="CuentaGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cuenta_Rubro">
+    <End Role="Rubro" Type="Self.Rubro" Multiplicity="0..1" />
+    <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rubro">
+        <PropertyRef Name="RubroId" />
+      </Principal>
+      <Dependent Role="Cuenta">
+        <PropertyRef Name="CuentaRubro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SACModel" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cuenta" EntityType="Self.Cuenta" />
+    <EntitySet Name="EstadoCuenta" EntityType="Self.EstadoCuenta" />
+    <EntitySet Name="Grupo" EntityType="Self.Grupo" />
+    <EntitySet Name="Perfil" EntityType="Self.Perfil" />
+    <EntitySet Name="Rubro" EntityType="Self.Rubro" />
+    <AssociationSet Name="FK_Cuenta_Grupo" Association="Self.FK_Cuenta_Grupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="Cuenta" EntitySet="Cuenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cuenta_Rubro" Association="Self.FK_Cuenta_Rubro">
+      <End Role="Rubro" EntitySet="Rubro" />
+      <End Role="Cuenta" EntitySet="Cuenta" />
+    </AssociationSet>
+    <FunctionImport Name="SACLogin" ReturnType="Collection(Int32)">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="PassWord" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Login" ReturnType="Collection(Int32)">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="PassWord" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="IngresarEmpresa">
+      <Parameter Name="EmpresaRut" Mode="In" Type="String" />
+      <Parameter Name="EmpresaRazonSocial" Mode="In" Type="String" />
+      <Parameter Name="EmpresaGiro" Mode="In" Type="String" />
+      <Parameter Name="EmpresaLogo" Mode="In" Type="String" />
+      <Parameter Name="UsuarioCreacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Empresa" EntityType="SAC.Empresa" />
+    <AssociationSet Name="FK_Cuenta_Empresa" Association="SAC.FK_Cuenta_Empresa">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="Cuenta" EntitySet="Cuenta" />
+    </AssociationSet>
+    <FunctionImport Name="EditarEmpresa">
+      <Parameter Name="empresaId" Mode="In" Type="Int32" />
+      <Parameter Name="empresaRut" Mode="In" Type="String" />
+      <Parameter Name="empresaRazonSocial" Mode="In" Type="String" />
+      <Parameter Name="empresaGiro" Mode="In" Type="String" />
+      <Parameter Name="empresaLogo" Mode="In" Type="String" />
+      <Parameter Name="usuarioId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EliminarEmpresa">
+      <Parameter Name="empresaId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="IngresarRubros">
+      <Parameter Name="rubroNombre" Mode="In" Type="String" />
+      <Parameter Name="rubroDescripcion" Mode="In" Type="String" />
+      <Parameter Name="UsuarioCreacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EditarRubro">
+      <Parameter Name="rubroId" Mode="In" Type="Int32" />
+      <Parameter Name="rubroNombre" Mode="In" Type="String" />
+      <Parameter Name="rubroDescripcion" Mode="In" Type="String" />
+      <Parameter Name="usuarioId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EliminarRubro">
+      <Parameter Name="rubroId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="IngresarGrupos">
+      <Parameter Name="grupoNombre" Mode="In" Type="String" />
+      <Parameter Name="grupoDescripcion" Mode="In" Type="String" />
+      <Parameter Name="usuarioCreacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EditarGrupo">
+      <Parameter Name="grupoId" Mode="In" Type="Int32" />
+      <Parameter Name="grupoNombre" Mode="In" Type="String" />
+      <Parameter Name="grupoDescripcion" Mode="In" Type="String" />
+      <Parameter Name="usuarioId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EliminarGrupo">
+      <Parameter Name="grupoId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="IngresarCuenta" ReturnType="Collection(Int32)">
+      <Parameter Name="cuentaNumero" Mode="In" Type="String" />
+      <Parameter Name="cuentaNombre" Mode="In" Type="String" />
+      <Parameter Name="cuentaEmpresa" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaRubro" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaGrupo" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaDescripcion" Mode="In" Type="String" />
+      <Parameter Name="usuarioCreacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EditarCuenta">
+      <Parameter Name="cuentaId" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaNumero" Mode="In" Type="String" />
+      <Parameter Name="cuentaNombre" Mode="In" Type="String" />
+      <Parameter Name="cuentaEmpresa" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaRubro" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaGrupo" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaDescripcion" Mode="In" Type="String" />
+      <Parameter Name="usuarioId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EliminarCuenta">
+      <Parameter Name="cuentaId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="IngresarUsuario">
+      <Parameter Name="usuarioNombre" Mode="In" Type="String" />
+      <Parameter Name="empresaId" Mode="In" Type="Int32" />
+      <Parameter Name="usuarioEmail" Mode="In" Type="String" />
+      <Parameter Name="perfilId" Mode="In" Type="Int32" />
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="pwd" Mode="In" Type="String" />
+      <Parameter Name="usuarioId" Mode="In" Type="Int32" />
+      <Parameter Name="usuarioRut" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ActualizarPassword">
+      <Parameter Name="UsuarioId" Mode="In" Type="Int32" />
+      <Parameter Name="Pwd" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ObtenerAñosDistintos" ReturnType="Collection(Int32)" />
+    <FunctionImport Name="AsignarCuentaActiva">
+      <Parameter Name="cuentaActivaId" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaActivaFecha" Mode="In" Type="DateTime" />
+      <Parameter Name="total" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaActivaAnalista" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaActivaValidador" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaActivaCertificador" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaActivaDiasPlazo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="IngresarCuentaActiva">
+      <Parameter Name="cuentaActivaId" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaActivaFecha" Mode="In" Type="DateTime" />
+      <Parameter Name="cuentaActivaTotal" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaActivaAnalista" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaActivaValidador" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaActivaCertificador" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaActivaDiasPlazo" Mode="In" Type="Int32" />
+      <Parameter Name="UsuarioCreacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="CuentaActiva" EntityType="SAC.CuentaActiva" />
+    <AssociationSet Name="FK_CuentaActiva_Cuenta" Association="SAC.FK_CuentaActiva_Cuenta">
+      <End Role="Cuenta" EntitySet="Cuenta" />
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CuentaActiva_Estados" Association="SAC.FK_CuentaActiva_Estados">
+      <End Role="EstadoCuenta" EntitySet="EstadoCuenta" />
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+    </AssociationSet>
+    <FunctionImport Name="InsertarArchivo">
+      <Parameter Name="ArchivoNombre" Mode="In" Type="String" />
+      <Parameter Name="ArchivoData" Mode="In" Type="Binary" />
+      <Parameter Name="ArchivoMonto" Mode="In" Type="Double" />
+      <Parameter Name="ArchivoComentario" Mode="In" Type="String" />
+      <Parameter Name="ArchivoExtension" Mode="In" Type="String" />
+      <Parameter Name="UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="CuentaActivaId" Mode="In" Type="Int32" />
+      <Parameter Name="CuentaActivaFecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="EditarArchivo">
+      <Parameter Name="archivoId" Mode="In" Type="Int32" />
+      <Parameter Name="archivoVersion" Mode="In" Type="Int32" />
+      <Parameter Name="archivoNombre" Mode="In" Type="String" />
+      <Parameter Name="archivoMonto" Mode="In" Type="Int32" />
+      <Parameter Name="archivoComentario" Mode="In" Type="String" />
+      <Parameter Name="archivoUsuarioId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EliminarArchivo">
+      <Parameter Name="archivoId" Mode="In" Type="Int32" />
+      <Parameter Name="archivoVersion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertarVersion">
+      <Parameter Name="archivoId" Mode="In" Type="Int32" />
+      <Parameter Name="archivoVersion" Mode="In" Type="Int32" />
+      <Parameter Name="ArchivoNombre" Mode="In" Type="String" />
+      <Parameter Name="ArchivoMonto" Mode="In" Type="Int32" />
+      <Parameter Name="ArchivoComentario" Mode="In" Type="String" />
+      <Parameter Name="ArchivoData" Mode="In" Type="Binary" />
+      <Parameter Name="UsuarioCreacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="IngresarArchivo">
+      <Parameter Name="ArchivoNombre" Mode="In" Type="String" />
+      <Parameter Name="ArchivoData" Mode="In" Type="Binary" />
+      <Parameter Name="ArchivoMonto" Mode="In" Type="Double" />
+      <Parameter Name="ArchivoComentario" Mode="In" Type="String" />
+      <Parameter Name="ArchivoExtension" Mode="In" Type="String" />
+      <Parameter Name="UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="CuentaActivaId" Mode="In" Type="Int32" />
+      <Parameter Name="CuentaActivaFecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="IngresarVersion">
+      <Parameter Name="archivoId" Mode="In" Type="Int32" />
+      <Parameter Name="archivoVersion" Mode="In" Type="Int32" />
+      <Parameter Name="ArchivoNombre" Mode="In" Type="String" />
+      <Parameter Name="ArchivoMonto" Mode="In" Type="Int32" />
+      <Parameter Name="ArchivoComentario" Mode="In" Type="String" />
+      <Parameter Name="ArchivoData" Mode="In" Type="Binary" />
+      <Parameter Name="UsuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="ArchivoExtension" Mode="In" Type="String" />
+      <Parameter Name="CuentaActivaId" Mode="In" Type="Int32" />
+      <Parameter Name="CuentaActivaFecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="CambiarEstadoCuenta">
+      <Parameter Name="logDescripcion" Mode="In" Type="String" />
+      <Parameter Name="logEstadoId" Mode="In" Type="Int32" />
+      <Parameter Name="logCuentaActivaId" Mode="In" Type="Int32" />
+      <Parameter Name="CuentaActivaFecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <EntitySet Name="Archivo" EntityType="SAC.Archivo" />
+    <EntitySet Name="Log" EntityType="SAC.Log" />
+    <AssociationSet Name="FK_Archivo_CuentaActiva" Association="SAC.FK_Archivo_CuentaActiva">
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+      <End Role="Archivo" EntitySet="Archivo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Log_CuentaActiva" Association="SAC.FK_Log_CuentaActiva">
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+      <End Role="Log" EntitySet="Log" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Log_EstadoCuenta" Association="SAC.FK_Log_EstadoCuenta">
+      <End Role="EstadoCuenta" EntitySet="EstadoCuenta" />
+      <End Role="Log" EntitySet="Log" />
+    </AssociationSet>
+    <FunctionImport Name="EditarUsuario">
+      <Parameter Name="usuarioId" Mode="In" Type="Int32" />
+      <Parameter Name="empresaUsuario" Mode="In" Type="Int32" />
+      <Parameter Name="usuarioNombre" Mode="In" Type="String" />
+      <Parameter Name="usuarioEmail" Mode="In" Type="String" />
+      <Parameter Name="perfilUsuario" Mode="In" Type="Int32" />
+      <Parameter Name="usuarioCreacion" Mode="In" Type="Int32" />
+      <Parameter Name="usuarioRut" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EliminarUsuario">
+      <Parameter Name="usuarioId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EditarClaveUsuario">
+      <Parameter Name="usuarioId" Mode="In" Type="Int32" />
+      <Parameter Name="pwd" Mode="In" Type="String" />
+      <Parameter Name="usuarioCreacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EliminarCuentaActiva">
+      <Parameter Name="cuentaActivaId" Mode="In" Type="Int32" />
+      <Parameter Name="cuentaActivaFecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <EntitySet Name="Usuario" EntityType="SAC.Usuario" />
+    <AssociationSet Name="FK_CuentaActiva_Analistas" Association="SAC.FK_CuentaActiva_Analistas">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CuentaActiva_Certificador" Association="SAC.FK_CuentaActiva_Certificador">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CuentaActiva_Validador" Association="SAC.FK_CuentaActiva_Validador">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="CuentaActiva" EntitySet="CuentaActiva" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USUARIOS_EMPRESAS" Association="SAC.FK_USUARIOS_EMPRESAS">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USUARIOS_PERFIL" Association="SAC.FK_USUARIOS_PERFIL">
+      <End Role="Perfil" EntitySet="Perfil" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="EmpresaId" />
+    </Key>
+    <Property Name="EmpresaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpresaRut" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="EmpresaRazonSocial" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="EmpresaLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EmpresaGiro" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="UsuarioCreacion" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cuenta" Relationship="SAC.FK_Cuenta_Empresa" FromRole="Empresa" ToRole="Cuenta" />
+    <NavigationProperty Name="Usuario" Relationship="SAC.FK_USUARIOS_EMPRESAS" FromRole="Empresa" ToRole="Usuario" />
+  </EntityType>
+  <Association Name="FK_Cuenta_Empresa">
+    <End Type="SAC.Empresa" Role="Empresa" Multiplicity="0..1" />
+    <End Type="SAC.Cuenta" Role="Cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="EmpresaId" />
+      </Principal>
+      <Dependent Role="Cuenta">
+        <PropertyRef Name="CuentaEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CuentaActiva">
+    <Key>
+      <PropertyRef Name="CuentaActivaId" />
+      <PropertyRef Name="CuentaActivaFecha" />
+    </Key>
+    <Property Name="CuentaActivaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CuentaActivaFecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CuentaActivaDiasPlazo" Type="Int32" />
+    <Property Name="CuentaActivaTotal" Type="Int32" />
+    <Property Name="AnalistaId" Type="Int32" />
+    <Property Name="ValidadorId" Type="Int32" />
+    <Property Name="CertificadorId" Type="Int32" />
+    <Property Name="CuentaActivaEstado" Type="Int32" />
+    <Property Name="UsuarioCreacion" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cuenta" Relationship="SAC.FK_CuentaActiva_Cuenta" FromRole="CuentaActiva" ToRole="Cuenta" />
+    <NavigationProperty Name="EstadoCuenta" Relationship="SAC.FK_CuentaActiva_Estados" FromRole="CuentaActiva" ToRole="EstadoCuenta" />
+    <NavigationProperty Name="Archivo" Relationship="SAC.FK_Archivo_CuentaActiva" FromRole="CuentaActiva" ToRole="Archivo" />
+    <NavigationProperty Name="Log" Relationship="SAC.FK_Log_CuentaActiva" FromRole="CuentaActiva" ToRole="Log" />
+    <NavigationProperty Name="Usuario" Relationship="SAC.FK_CuentaActiva_Analistas" FromRole="CuentaActiva" ToRole="Usuario" />
+    <NavigationProperty Name="Usuario1" Relationship="SAC.FK_CuentaActiva_Certificador" FromRole="CuentaActiva" ToRole="Usuario" />
+    <NavigationProperty Name="Usuario2" Relationship="SAC.FK_CuentaActiva_Validador" FromRole="CuentaActiva" ToRole="Usuario" />
+  </EntityType>
+  <Association Name="FK_CuentaActiva_Cuenta">
+    <End Type="SAC.Cuenta" Role="Cuenta" Multiplicity="1" />
+    <End Type="SAC.CuentaActiva" Role="CuentaActiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cuenta">
+        <PropertyRef Name="CuentaId" />
+      </Principal>
+      <Dependent Role="CuentaActiva">
+        <PropertyRef Name="CuentaActivaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CuentaActiva_Estados">
+    <End Type="SAC.EstadoCuenta" Role="EstadoCuenta" Multiplicity="0..1" />
+    <End Type="SAC.CuentaActiva" Role="CuentaActiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoCuenta">
+        <PropertyRef Name="EstadoId" />
+      </Principal>
+      <Dependent Role="CuentaActiva">
+        <PropertyRef Name="CuentaActivaEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Archivo">
+    <Key>
+      <PropertyRef Name="ArchivoId" />
+      <PropertyRef Name="ArchivoVersion" />
+    </Key>
+    <Property Name="ArchivoId" Type="Int32" Nullable="false" />
+    <Property Name="ArchivoVersion" Type="Int32" Nullable="false" />
+    <Property Name="ArchivoNombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ArchivoFecha" Type="DateTime" Precision="3" />
+    <Property Name="ArchivoData" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="ArchivoMonto" Type="Double" />
+    <Property Name="ArchivoComentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ArchivoExtension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ArchivoEstado" Type="Int32" />
+    <Property Name="UsuarioCreacion" Type="Int32" />
+    <Property Name="CuentaActivaId" Type="Int32" />
+    <Property Name="CuentaActivaFecha" Type="DateTime" Precision="0" />
+    <Property Name="RowGuid" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="CuentaActiva" Relationship="SAC.FK_Archivo_CuentaActiva" FromRole="Archivo" ToRole="CuentaActiva" />
+    <Property Name="ArchivoFechaEliminacion" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LogDescripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LogEstadoId" Type="Int32" />
+    <Property Name="LogFecha" Type="DateTime" Precision="3" />
+    <Property Name="CuentaActivaId" Type="Int32" />
+    <Property Name="CuentaActivaFecha" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="CuentaActiva" Relationship="SAC.FK_Log_CuentaActiva" FromRole="Log" ToRole="CuentaActiva" />
+    <NavigationProperty Name="EstadoCuenta" Relationship="SAC.FK_Log_EstadoCuenta" FromRole="Log" ToRole="EstadoCuenta" />
+  </EntityType>
+  <Association Name="FK_Archivo_CuentaActiva">
+    <End Type="SAC.CuentaActiva" Role="CuentaActiva" Multiplicity="0..1" />
+    <End Type="SAC.Archivo" Role="Archivo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CuentaActiva">
+        <PropertyRef Name="CuentaActivaId" />
+        <PropertyRef Name="CuentaActivaFecha" />
+      </Principal>
+      <Dependent Role="Archivo">
+        <PropertyRef Name="CuentaActivaId" />
+        <PropertyRef Name="CuentaActivaFecha" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Log_CuentaActiva">
+    <End Type="SAC.CuentaActiva" Role="CuentaActiva" Multiplicity="0..1" />
+    <End Type="SAC.Log" Role="Log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CuentaActiva">
+        <PropertyRef Name="CuentaActivaId" />
+        <PropertyRef Name="CuentaActivaFecha" />
+      </Principal>
+      <Dependent Role="Log">
+        <PropertyRef Name="CuentaActivaId" />
+        <PropertyRef Name="CuentaActivaFecha" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Log_EstadoCuenta">
+    <End Type="SAC.EstadoCuenta" Role="EstadoCuenta" Multiplicity="0..1" />
+    <End Type="SAC.Log" Role="Log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoCuenta">
+        <PropertyRef Name="EstadoId" />
+      </Principal>
+      <Dependent Role="Log">
+        <PropertyRef Name="LogEstadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="UsuarioId" />
+    </Key>
+    <Property Name="UsuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsuarioRut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UsuarioNombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="EmpresaId" Type="Int32" />
+    <Property Name="UsuarioEmail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="PerfilId" Type="Int32" />
+    <Property Name="Username" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Pwd" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="pwdEstado" Type="Int32" />
+    <Property Name="UsuarioCreacion" Type="Int32" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="CuentaActiva" Relationship="SAC.FK_CuentaActiva_Analistas" FromRole="Usuario" ToRole="CuentaActiva" />
+    <NavigationProperty Name="CuentaActiva1" Relationship="SAC.FK_CuentaActiva_Certificador" FromRole="Usuario" ToRole="CuentaActiva" />
+    <NavigationProperty Name="CuentaActiva2" Relationship="SAC.FK_CuentaActiva_Validador" FromRole="Usuario" ToRole="CuentaActiva" />
+    <NavigationProperty Name="Empresa" Relationship="SAC.FK_USUARIOS_EMPRESAS" FromRole="Usuario" ToRole="Empresa" />
+    <NavigationProperty Name="Perfil" Relationship="SAC.FK_USUARIOS_PERFIL" FromRole="Usuario" ToRole="Perfil" />
+  </EntityType>
+  <Association Name="FK_CuentaActiva_Analistas">
+    <End Type="SAC.Usuario" Role="Usuario" Multiplicity="0..1" />
+    <End Type="SAC.CuentaActiva" Role="CuentaActiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioId" />
+      </Principal>
+      <Dependent Role="CuentaActiva">
+        <PropertyRef Name="AnalistaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CuentaActiva_Certificador">
+    <End Type="SAC.Usuario" Role="Usuario" Multiplicity="0..1" />
+    <End Type="SAC.CuentaActiva" Role="CuentaActiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioId" />
+      </Principal>
+      <Dependent Role="CuentaActiva">
+        <PropertyRef Name="CertificadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CuentaActiva_Validador">
+    <End Type="SAC.Usuario" Role="Usuario" Multiplicity="0..1" />
+    <End Type="SAC.CuentaActiva" Role="CuentaActiva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioId" />
+      </Principal>
+      <Dependent Role="CuentaActiva">
+        <PropertyRef Name="ValidadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USUARIOS_EMPRESAS">
+    <End Type="SAC.Empresa" Role="Empresa" Multiplicity="0..1" />
+    <End Type="SAC.Usuario" Role="Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="EmpresaId" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="EmpresaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USUARIOS_PERFIL">
+    <End Type="SAC.Perfil" Role="Perfil" Multiplicity="0..1" />
+    <End Type="SAC.Usuario" Role="Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfil">
+        <PropertyRef Name="PerfilId" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="PerfilId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
